@@ -1,20 +1,14 @@
 class Node
   attr_accessor :next, :value
+
   def initialize(value)
     @value = value
     @next = nil
   end
-  
-  def value
-    @value
-  end
-
-  def next_node
-    @next
-  end
 end
 
 class LinkedList
+
   def initialize
     @@node_counter = 0
     @head = nil
@@ -60,12 +54,13 @@ class LinkedList
   end
 
   def insert_at(index, value)
-    return 'OUT OF INDEX RANGE' if index > size
+    return 'OUT OF INDEX RANGE' if index > size || index < 0
     return prepend(value) if index == 0
     return append(value) if index == size
     index_counter = 0
     temp_node = @head
     new_node = Node.new(value)
+    #traverse to find the specified index
     while index_counter < index - 1
       temp_node = temp_node.next
       index_counter += 1
@@ -78,7 +73,7 @@ class LinkedList
   def remove_at(index)
     return "NO MORE ITEMS TO DELETE" if size == 0
     return "OUT OF INDEX RANGE" if index > size - 1
-    return pop if index == (size - 1)
+    return pop if index == size - 1
     if index == 0
       @head = @head.next
       @@node_counter -= 1
@@ -86,7 +81,7 @@ class LinkedList
     end
     index_counter = 0
     temp_node = @head
-    while index_counter < (index - 1)
+    while index_counter < index - 1
       temp_node = temp_node.next
       index_counter += 1
     end
@@ -160,9 +155,5 @@ class LinkedList
 end
 
 mylist = LinkedList.new
-mylist.append(0)
-mylist.append(1)
-mylist.append(2)
-mylist.append(3)
-mylist.append(4)
-mylist.append(5)
+
+# 99.times { mylist.append((1..5000).to_a.sample) }
